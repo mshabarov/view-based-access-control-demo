@@ -1,5 +1,6 @@
 package org.vaadin.example.ui.list;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 
 import org.vaadin.example.MainLayout;
@@ -15,6 +16,7 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "list", layout = MainLayout.class)
 @PageTitle("Contacts | Vaadin CRM")
+@PermitAll
 public class ListView extends VerticalLayout {
 
     Grid<Contact> grid = new Grid<>(Contact.class);

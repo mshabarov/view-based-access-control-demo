@@ -1,5 +1,6 @@
 package org.vaadin.example.ui.dashboard;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import com.vaadin.flow.router.Route;
 
 @PageTitle("Dashboard | Vaadin CRM")
 @Route(value = "dashboard", layout = MainLayout.class)
+@RolesAllowed("ADMIN")
 public class DashboardView extends VerticalLayout {
 
     private final ContactService contactService;

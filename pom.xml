@@ -17,8 +17,7 @@
 
         <!-- Dependencies -->
 
-        <vaadin.version>21.0.0.alpha4</vaadin.version>
-        <flow.version>8.0.0.alpha4</flow.version>
+        <vaadin.version>21.0.0</vaadin.version>
     </properties>
 
     <repositories>
@@ -71,13 +70,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>flow-bom</artifactId>
-                <version>${flow.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-bom</artifactId>
