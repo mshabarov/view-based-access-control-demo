@@ -1,7 +1,10 @@
 package com.vaadin.tutorial.crm.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -9,14 +12,19 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.tutorial.crm.ui.views.task1.dashboard.DashboardView;
-import com.vaadin.tutorial.crm.ui.views.task1.home.HomeView;
-import com.vaadin.tutorial.crm.ui.views.task1.list.ListView;
+import com.vaadin.tutorial.crm.backend.service.SecurityService;
+import com.vaadin.tutorial.crm.ui.views.crm.dashboard.DashboardView;
+import com.vaadin.tutorial.crm.ui.views.crm.home.HomeView;
+import com.vaadin.tutorial.crm.ui.views.crm.list.ListView;
+import com.vaadin.tutorial.crm.ui.views.company.CompanyDescriptionView;
 
 @CssImport("./styles/shared-styles.css")
 public class MainLayout extends AppLayout {
 
-    public MainLayout() {
+    private SecurityService securityService;
+
+    public MainLayout(@Autowired SecurityService securityService) {
+        this.securityService = securityService;
         createHeader();
         createDrawer();
     }
@@ -26,7 +34,15 @@ public class MainLayout extends AppLayout {
         logo.addClassName("logo");
 
         HorizontalLayout header;
-        header = new HorizontalLayout(new DrawerToggle(), logo);
+
+        if (securityService.getAuthenticatedUser() != null) {
+            Button logout = new Button("Logout",
+                    click -> securityService.logout());
+            header = new HorizontalLayout(new DrawerToggle(), logo, logout);
+        } else {
+            header = new HorizontalLayout(new DrawerToggle(), logo);
+        }
+
         header.addClassName("header");
         header.setWidth("100%");
         header.expand(logo);
@@ -41,8 +57,9 @@ public class MainLayout extends AppLayout {
 
         addToDrawer(new VerticalLayout(
                 homeLink,
-            new RouterLink("Contact List", ListView.class),
-            new RouterLink("Dashboard", DashboardView.class)
+                new RouterLink("Contact List", ListView.class),
+                new RouterLink("Dashboard", DashboardView.class),
+                new RouterLink("Description", CompanyDescriptionView.class)
         ));
     }
 }

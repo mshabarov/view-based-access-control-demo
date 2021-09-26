@@ -1,7 +1,6 @@
-package com.vaadin.tutorial.crm.ui.views.task1.list;
+package com.vaadin.tutorial.crm.ui.views.crm.list;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javax.annotation.security.PermitAll;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
@@ -13,10 +12,11 @@ import com.vaadin.tutorial.crm.backend.entity.Contact;
 import com.vaadin.tutorial.crm.backend.service.ContactService;
 import com.vaadin.tutorial.crm.ui.MainLayout;
 
-@Component
-@Scope("prototype")
+//@Component
+//@Scope("prototype")
 @Route(value = "list", layout = MainLayout.class)
 @PageTitle("Contacts | Vaadin CRM")
+@PermitAll
 public class ListView extends VerticalLayout {
 
     Grid<Contact> grid = new Grid<>(Contact.class);
